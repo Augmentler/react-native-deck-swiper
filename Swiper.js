@@ -80,6 +80,14 @@ class Swiper extends Component {
     return propsChanged || stateChanged
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.cards.length != this.props.cards.length){
+      this.setState({
+        cards: this.props.cards
+      })
+    }
+  }
+
   componentWillUnmount = () => {
     this._mounted = false
     this.state.pan.x.removeAllListeners()
