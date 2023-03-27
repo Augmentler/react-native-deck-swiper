@@ -130,7 +130,7 @@ class Swiper extends Component {
         const isVerticalSwipe = Math.sqrt(
           Math.pow(gestureState.dx, 2) < Math.pow(gestureState.dy, 2)
         )
-        if (!this.props.verticalSwipe && isVerticalSwipe) {
+        if (!this.props.verticalSwipe && isVerticalSwipe || this.props.removePanResponder) {
           return false
         }
         return Math.sqrt(Math.pow(gestureState.dx, 2) + Math.pow(gestureState.dy, 2)) > 10
