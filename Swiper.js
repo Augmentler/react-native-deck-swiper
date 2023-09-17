@@ -50,6 +50,7 @@ class Swiper extends Component {
       slideGesture: false,
       swipeBackXYPositions: [],
       isSwipingBack: false,
+      dimensionsHandler: null,
       ...rebuildStackAnimatedValues(props)
     }
 
@@ -92,7 +93,10 @@ class Swiper extends Component {
     this._mounted = false
     this.state.pan.x.removeAllListeners()
     this.state.pan.y.removeAllListeners()
-    Dimensions.removeEventListener('change', this.onDimensionsChange)
+    if(this.state.dimensionsHandler){
+      this.state.dimensionsHandler.remove()
+    }
+    // Dimensions.removeEventListener('change', this.onDimensionsChange)
   }
 
   getCardStyle = () => {
@@ -118,7 +122,8 @@ class Swiper extends Component {
 
   initializeCardStyle = () => {
     // this.forceUpdate()
-    Dimensions.addEventListener('change', this.onDimensionsChange)
+    let dimensionsHandler = Dimensions.addEventListener('change', this.onDimensionsChange)
+    this.setState({ dimensionsHandler })
   }
 
   initializePanResponder = () => {
